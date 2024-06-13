@@ -93,7 +93,7 @@
                             <h2 class="font-medium">
                                 Capital:
                                 <span class="font-thin">{{
-                        String(country.capital).replace(",", " ")
+                                        String(country.capital).replace(",", " ")
                                     }}</span>
                             </h2>
                         </div>
