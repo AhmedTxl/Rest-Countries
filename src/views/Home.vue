@@ -35,8 +35,6 @@
                     <ComboboxContent
                         class="absolute z-10 w-full mt-2 min-w-[160px] bg-[#283541] overflow-hidden rounded shadow-[0px_10px_38px_-10px_rgba(22,_23,_24,_0.35),_0px_10px_20px_-15px_rgba(22,_23,_24,_0.2)] will-change-[opacity,transform] data-[side=top]:animate-slideDownAndFade data-[side=right]:animate-slideLeftAndFade data-[side=bottom]:animate-slideUpAndFade data-[side=left]:animate-slideRightAndFade">
                         <ComboboxViewport class="p-[5px]">
-                            <ComboboxEmpty class="text-mauve8 text-xs font-medium text-center py-2" />
-
                             <ComboboxGroup>
                                 <ComboboxItem v-for="(option, index) in regions" :key="index"
                                     class="leading-none text-white rounded-[3px] flex items-center h-12 pr-[35px] pl-[25px] relative select-none data-[disabled]:text-mauve8 data-[disabled]:pointer-events-none data-[highlighted]:outline-none data-[highlighted]:bg-[#2f3e4b] data-[highlighted]:text-grass1"
@@ -108,7 +106,6 @@
 import {
     ComboboxAnchor,
     ComboboxContent,
-    ComboboxEmpty,
     ComboboxGroup,
     ComboboxItem,
     ComboboxItemIndicator,
@@ -118,7 +115,8 @@ import {
     ComboboxViewport,
 } from "radix-vue";
 import { Icon } from "@iconify/vue";
-import { ref, onMounted, computed } from "vue";
+import { ref, onMounted, computed, watch } from "vue";
+import debounce from 'lodash/debounce';
 
 const v = ref("All Regions");
 const regions = [
@@ -134,12 +132,20 @@ const countries = ref([]);
 const loading = ref(false);
 const filterText = ref("");
 
+// Debounce the filter function to improve performance
+const debouncedFilterText = ref("");
+const updateFilterText = debounce((text) => {
+    debouncedFilterText.value = text;
+    console.log("Debounced Filter Text Updated:", debouncedFilterText.value);
+}, 300);
+
 const filteredCountries = computed(() => {
+    console.log("Filtering countries with text:", debouncedFilterText.value);
     return countries.value.filter((country) => {
         // Check if the country's name matches the filter text
         const nameMatches = country.name.common
             .toLowerCase()
-            .includes(filterText.value.toLowerCase());
+            .includes(debouncedFilterText.value.toLowerCase());
 
         // Check if the country belongs to the selected region
         const regionMatches =
@@ -149,11 +155,6 @@ const filteredCountries = computed(() => {
         return nameMatches && regionMatches;
     });
 });
-// const filteredCountries = computed(() => {
-//   return countries.value.filter(country => {
-//     return country.name.common.toLowerCase().includes(filterText.value.toLowerCase());
-//   });
-// });
 
 onMounted(async () => {
     loading.value = true;
@@ -165,6 +166,11 @@ onMounted(async () => {
     } finally {
         loading.value = false;
     }
+});
+
+watch(filterText, (newVal) => {
+    console.log("Filter Text Changed:", newVal);
+    updateFilterText(newVal);
 });
 </script>
 
