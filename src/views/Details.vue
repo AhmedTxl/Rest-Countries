@@ -4,13 +4,13 @@
     </header>
 
     <main
-        class="flex flex-col items-center justify-center w-full px-28 gap-16 h-full max-lg:px-10 max-lg:mt-16 max-lg:items-start">
+        class="flex flex-col items-center justify-center w-full px-28 mt-16 gap-16 h-full max-lg:px-10 max-lg:mt-16 max-lg:items-start">
         <router-link to="/"
             class="inline-flex items-center gap-3 px-7 py-3 self-start bg-[#2f3e4b] rounded-md shadow-lg hover:bg-[#364857]">
             <svg fill="#fff" width="25px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg"
                 xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 476.213 476.213" xml:space="preserve">
                 <polygon points="476.213,223.107 57.427,223.107 151.82,128.713 130.607,107.5 0,238.106 130.607,368.714 151.82,347.5 
-	            57.427,253.107 476.213,253.107 " />
+	                57.427,253.107 476.213,253.107 " />
             </svg>
             Back
         </router-link>
@@ -36,7 +36,7 @@
                     <span>Borders: </span>
                     <!-- <div class="grid grid-flow-row grid-cols-3 gap-x-4 gap-y-4"> -->
                         <div class="flex flex-row flex-wrap gap-4 ">
-                        <div class="w-32 text-center font-light py-2 place-self-center bg-[#2f3e4b] rounded-md shadow-lg hover:bg-[#364857]"
+                        <div class="w-fit px-6 text-center font-light py-2 place-self-center bg-[#2f3e4b] rounded-md shadow-lg hover:bg-[#364857]"
                             v-for="border in borderCountries" :key="border">
                             {{ border }}
                         </div>

@@ -136,11 +136,9 @@ const filterText = ref("");
 const debouncedFilterText = ref("");
 const updateFilterText = debounce((text) => {
     debouncedFilterText.value = text;
-    console.log("Debounced Filter Text Updated:", debouncedFilterText.value);
 }, 300);
 
 const filteredCountries = computed(() => {
-    console.log("Filtering countries with text:", debouncedFilterText.value);
     return countries.value.filter((country) => {
         // Check if the country's name matches the filter text
         const nameMatches = country.name.common
