@@ -72,7 +72,7 @@
                             {{ getBorderCountryName(border) }}
                         </router-link>
                     </div>
-                    <h1 v-else class=" text-base font-medium text-gray-500 dark:text-gray-400">There is no border countries!</h1>
+                    <h1 v-else class=" text-base font-medium text-gray-500 dark:text-gray-400">{{ country.name.common }} has no borders</h1>
                 </div>
             </div>
         </div>
