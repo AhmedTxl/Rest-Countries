@@ -110,7 +110,7 @@ const borderCountries = computed(() =>
 
 // Fetch data on mount
 onMounted(() => {
-    fetchCountryDetails(route.params.code)
+    fetchCountryDetails(route.params.code.trim())
     fetchAllCountries()
 })
 
@@ -119,3 +119,4 @@ watch(() => route.params.code, (newCode) => {
     fetchCountryDetails(newCode)
 })
 </script>
+
