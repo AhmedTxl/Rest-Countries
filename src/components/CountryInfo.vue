@@ -50,24 +50,11 @@ import { Globe, Search, Sun, Moon } from 'lucide-vue-next'
 import { useDebounce } from '@vueuse/core'
 import CountryList from './CountryList.vue'
 import ErrorBoundary from './ErrorBoundry.vue'
+import { useTheme } from '../composables/useTheme'
 
+const { darkMode, toggleTheme } = useTheme()
 const searchTerm = ref('')
 const debouncedSearchTerm = useDebounce(searchTerm, 300)
-const darkMode = ref(false)
-
-const toggleTheme = () => {
-  darkMode.value = !darkMode.value
-  localStorage.setItem('theme', darkMode.value ? 'dark' : 'light')
-}
-
-onMounted(() => {
-  const savedTheme = localStorage.getItem('theme')
-  darkMode.value = savedTheme === 'dark'
-})
-
-watch(darkMode, (newValue) => {
-  document.documentElement.classList.toggle('dark', newValue)
-})
 </script>
 
 <style>
